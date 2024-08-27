@@ -1,7 +1,7 @@
-import BookStorage from "./BookStorage";
+import BookTest from "./BookTest";
 
 const App = () => {
-  return <BookStorage />;
+  return <BookTest />;
 };
 
 export default App;
