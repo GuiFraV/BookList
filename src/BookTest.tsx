@@ -23,7 +23,9 @@ const BookTest = () => {
     pages: 0,
   });
 
-  const handleInputData = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const [books, setBooks] = useState<Book[]>([]);
+
+  const handleFormInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
     setDataForm((prevData) => ({
       ...prevData,
@@ -31,56 +33,45 @@ const BookTest = () => {
     }));
   };
 
-  const [books, setBooks] = useState<Book[]>([]);
-
   const handleSubmit = (e: React.MouseEvent<HTMLInputElement>) => {
     e.preventDefault();
     if (dataForm.title && dataForm.author) {
-      setBooks((prevBooks) => [
-        ...prevBooks,
-        { id: prevBooks.length + 1, ...dataForm },
-      ]);
+      setBooks((prevBook) => [...prevBook, { id: Date.now(), ...dataForm }]);
     }
-    setDataForm({
-      title: "",
-      author: "",
-      gender: "",
-      pages: 0,
-    });
   };
 
   return (
     <div>
-      <h1>BookList</h1>
+      <h1>Hello BookList</h1>
       <form>
         <input
+          onChange={handleFormInput}
           name="title"
-          onChange={handleInputData}
+          placeholder="title"
           value={dataForm.title}
-          placeholder="Title"
         ></input>
         <input
+          onChange={handleFormInput}
           name="author"
-          onChange={handleInputData}
           value={dataForm.author}
-          placeholder="Author"
+          placeholder="author"
         ></input>
         <input
+          onChange={handleFormInput}
           name="gender"
-          onChange={handleInputData}
           value={dataForm.gender}
-          placeholder="Gender"
+          placeholder="gender"
         ></input>
         <input
+          onChange={handleFormInput}
           name="pages"
-          onChange={handleInputData}
           value={dataForm.pages}
-          placeholder="Pages"
+          placeholder="pages"
         ></input>
         <input onClick={handleSubmit} type="submit"></input>
       </form>
 
-      <h3>Books</h3>
+      <h2>My BookList</h2>
       <ul>
         {books.map((book) => (
           <li key={book.id}>
