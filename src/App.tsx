@@ -3,6 +3,7 @@ import { BookForm } from "./components/BookForm/BookForm";
 import { BookList } from "./components/BookList/BookList";
 import { GenreFilter } from "./components/GenreFilter/GenreFilter";
 import { Book, FormData } from "./types";
+import Counter from "./components/Counter/Counter";
 
 const App: React.FC = () => {
   const [books, setBooks] = useState<Book[]>([]);
@@ -32,6 +33,7 @@ const App: React.FC = () => {
         onGenreChange={setActiveGenre}
       />
       <BookList books={filteredBooks} />
+      <Counter />
     </div>
   );
 };
