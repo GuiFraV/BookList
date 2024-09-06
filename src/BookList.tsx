@@ -41,6 +41,10 @@ const BookList = () => {
     });
   };
 
+  const deleteBook = (id: number) => {
+    setBooks((prevBook) => prevBook.filter((book) => book.id !== id));
+  };
+
   return (
     <div>
       <h2>BookForm</h2>
@@ -79,6 +83,7 @@ const BookList = () => {
             <strong>{book.title}</strong> by {book.author}
             {book.gender && <span> - Gender : {book.gender} </span>}
             {book.pages > 0 && <span>{book.pages} pages.</span>}
+            <button onClick={() => deleteBook(book.id)}>Delete</button>
           </li>
         ))}
       </ul>
