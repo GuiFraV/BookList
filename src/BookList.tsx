@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 interface Book {
   id: number;
@@ -18,6 +18,7 @@ const BookList = () => {
     pages: 0,
   });
   const [books, setBooks] = useState<Book[]>([]);
+  const [genres, setGenres] = useState<string[]>([]);
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target as HTMLInputElement;
@@ -28,7 +29,7 @@ const BookList = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLInputElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (bookInput.title && bookInput.author) {
       setBooks((prevBook) => [...prevBook, { id: Date.now(), ...bookInput }]);
@@ -44,6 +45,10 @@ const BookList = () => {
   const deleteBook = (id: number) => {
     setBooks((prevBook) => prevBook.filter((book) => book.id !== id));
   };
+
+  useEffect(() => {
+    setGenres(Array.from(new Set(books.map((book) => book.gender))));
+  }, [books]);
 
   return (
     <div>
@@ -77,6 +82,12 @@ const BookList = () => {
       </form>
 
       <h2>BookList</h2>
+      <div>
+        <button>All Genre</button>
+        {genres.map((g) => (
+          <button key={g.length + 1}>{g}</button>
+        ))}
+      </div>
       <ul>
         {books.map((book) => (
           <li key={book.id}>
